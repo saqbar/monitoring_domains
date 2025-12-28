@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TelegramModule } from './telegram/telegram.module';
 import * as process from 'process';
 
 @Module({
@@ -18,6 +19,7 @@ import * as process from 'process';
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: true,
     }),
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [AppService],

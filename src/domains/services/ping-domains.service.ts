@@ -39,15 +39,8 @@ export class PingDomainsService {
           }
         }
       }
-      //
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
-  }
-  async ping_domains2() {
-    // const ping = await axios.get(`https://google.com`);
-    const ping = await axios.get(`https://hdrezka-home.tv`);
-    console.log(ping.status);
-    return ping.status;
   }
 }

@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { DomainsService } from '../services/domains.service';
 import { CreateDomainDto } from '../dto/domains.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { ValidationDomainPipe } from '../pipes/validation-domain.pipe';
 import { PingDomainsService } from '../services/ping-domains.service';
 
@@ -22,6 +22,17 @@ export class DomainsController {
     private readonly pingDomainsService: PingDomainsService,
   ) {}
 
+  @ApiProperty({ description: 'Force Check Domains' })
+  @Get('force_check_domains')
+  async forceCheckDomains() {
+    try {
+      return this.pingDomainsService.ping_domains();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @ApiProperty({ description: 'Get all domains' })
   @Get()
   findAll() {
     try {

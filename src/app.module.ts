@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TelegramModule } from './telegram/telegram.module';
+import { DomainsModule } from './domains/domains.module';
 import * as process from 'process';
 
 @Module({
@@ -20,6 +21,7 @@ import * as process from 'process';
       synchronize: true,
     }),
     TelegramModule,
+    DomainsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

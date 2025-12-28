@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TelegramController } from './telegram.controller';
+import { TelegramController } from './controllers/telegram.controller';
 import { TelegramService } from './services/telegram.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SessionEntity } from './enteties/session.entity';

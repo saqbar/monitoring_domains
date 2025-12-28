@@ -58,40 +58,47 @@ export class TelegramService implements OnModuleInit {
     }
   }
   async getSessionDb() {
-    const sessionDb = await this.sessionEntityRepository.findOne({
-      where: { id: 1 },
-    });
-    if (sessionDb) {
-      return sessionDb.sessionData;
-    } else {
-      return '';
+    try {
+      const sessionDb = await this.sessionEntityRepository.findOne({
+        where: { id: 1 },
+      });
+      if (sessionDb) {
+        return sessionDb.sessionData;
+      } else {
+        return '';
+      }
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
   async saveSession() {
-    const check_tg_authorization = await this.client.checkAuthorization();
-    // console.log(check_tg_authorization);
-    if (check_tg_authorization) {
-      if (await this.sessionEntityRepository.findOne({ where: { id: 1 } })) {
-        await this.sessionEntityRepository.update(
-          { id: 1 },
-          {
+    try {
+      const check_tg_authorization = await this.client.checkAuthorization();
+      // console.log(check_tg_authorization);
+      if (check_tg_authorization) {
+        if (await this.sessionEntityRepository.findOne({ where: { id: 1 } })) {
+          await this.sessionEntityRepository.update(
+            { id: 1 },
+            {
+              sessionData: String(this.client.session.save()),
+            },
+          );
+        } else {
+          const save_db_session = await this.sessionEntityRepository.save({
             sessionData: String(this.client.session.save()),
-          },
-        );
-      } else {
-        const save_db_session = await this.sessionEntityRepository.save({
-          sessionData: String(this.client.session.save()),
-        });
-        if (save_db_session) {
-          console.log('Session saved to database');
-          return true;
+          });
+          if (save_db_session) {
+            console.log('Session saved to database');
+          }
         }
+      } else {
+        console.log(
+          'You are connected to telegram servers but not logged in with any account',
+        );
       }
-    } else {
-      console.log(
-        'You are connected to telegram servers but not logged in with any account',
-      );
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 }

@@ -5,11 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SessionEntity } from './enteties/session.entity';
 import { ChanelTg } from './enteties/chanel_tg.entity';
 import { TelegramHelperService } from './services/telegram-helper.service';
+import { ChannelTgService } from './services/channels-tg.service';
+import { ChannelTgEntity } from './enteties/channels.entity';
 
 @Module({
   controllers: [TelegramController],
-  providers: [TelegramService, TelegramHelperService],
-  imports: [TypeOrmModule.forFeature([SessionEntity, ChanelTg])],
-  exports: [TelegramHelperService],
+  providers: [TelegramService, TelegramHelperService, ChannelTgService],
+  imports: [
+    TypeOrmModule.forFeature([SessionEntity, ChanelTg, ChannelTgEntity]),
+  ],
+  exports: [TelegramHelperService, ChannelTgService],
 })
 export class TelegramModule {}

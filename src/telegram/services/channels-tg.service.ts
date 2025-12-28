@@ -50,11 +50,11 @@ export class ChannelTgService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
-  async getAllChannels(): Promise<ChannelTgEntity[] | boolean> {
+  async getAllChannels(): Promise<ChannelTgEntity[]> {
     try {
       const channels = await this.channelTgEntityRepository.find();
       if (!channels.length) {
-        return false;
+        return [];
       }
       return channels;
     } catch (error) {

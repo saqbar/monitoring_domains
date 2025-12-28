@@ -27,8 +27,10 @@
     "@nestjs/swagger": "^11.2.3",
     "@nestjs/typeorm": "^11.0.0",
     "mysql2": "^3.16.0",
+    "nestjs-telegram": "^1.2.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "telegram": "^2.26.22",
     "typeorm": "^0.3.28"
   },
   "devDependencies": {
